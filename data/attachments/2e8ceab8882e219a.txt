@@ -10,7 +10,7 @@ Using role "admin" to get session token for UpdateBookingById
 🎯 [MOCK MATCHED] Blocking real request to: https://restful-booker.herokuapp.com/booking/968
 
 🔴 <<<<<<<<<< DEBUG PUT (MOCKED) 🔴
-curl -X PUT "https://restful-booker.herokuapp.com/booking/968" -H "Content-Type: application/json" -H "Cookie: token=8ec92c0d176a506" -d '{"firstname":"John","lastname":"Smith","totalprice":111,"depositpaid":true,"bookingdates":{"checkin":"2018-01-01","checkout":"2019-01-01"},"additionalneeds":"Breakfast"}'
+curl -X PUT "https://restful-booker.herokuapp.com/booking/968" -H "Content-Type: application/json" -H "Cookie: token=44043f4d6abb89f" -d '{"firstname":"John","lastname":"Smith","totalprice":111,"depositpaid":true,"bookingdates":{"checkin":"2018-01-01","checkout":"2019-01-01"},"additionalneeds":"Breakfast"}'
 STATUS: 400 | TIME: 0.00ms
 RESPONSE: {
   "error": "Bad Request MOCKED",
