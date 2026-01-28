@@ -74,7 +74,7 @@ export default defineConfig({
     },
     {
       name: "api",
-      fullyParallel: true,
+      fullyParallel: false,
       use: {
         headless: true,
         ignoreHTTPSErrors: true,
