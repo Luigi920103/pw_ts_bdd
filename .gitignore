@@ -14,3 +14,12 @@ server.pid
 *.eml
 /dist/
 .cache
+
+# My ignores
+.features-gen
+allure-results
+node_modules
+playwright-report
+test-results
+.env
+src/resources/temp/.*
