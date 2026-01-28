@@ -7,7 +7,7 @@ on:
   workflow_dispatch:
 
 permissions:
-  contents: write # Necesario para publicar en GitHub Pages
+  contents: write
 
 jobs:
   test:
@@ -23,7 +23,6 @@ jobs:
       - name: Install dependencies
         run: npm ci
 
-      # 1. Recuperar historial de Allure para tener gráficas de tendencia
       - name: Get Allure history
         uses: actions/checkout@v4
         if: always()
@@ -35,41 +34,33 @@ jobs:
       - name: Execute Playwright BDD Tests
         run: npm run test-all
         env:
-          # Variables de Configuración
           TEST_ENVIRONMENT: ${{ secrets.TEST_ENVIRONMENT || 'dev' }}
-          PAUSE_APP_ON_DEBUG: ${{ secrets.PAUSE_APP_ON_DEBUG }}
-          AUTOMATION_UI_WIDTH: ${{ secrets.AUTOMATION_UI_WIDTH }}
-          AUTOMATION_UI_HEIGHT: ${{ secrets.AUTOMATION_UI_HEIGHT }}
-          API_DEBUG: ${{ secrets.API_DEBUG }}
-
-          # MongoDB
           MONGODB_CONNECTION: ${{ secrets.MONGODB_CONNECTION }}
           MONGODB_DB: ${{ secrets.MONGODB_DB }}
-
-          # Postgres
           POSTGRESSQL_HOST: ${{ secrets.POSTGRESSQL_HOST }}
           POSTGRESSQL_PORT: ${{ secrets.POSTGRESSQL_PORT }}
           POSTGRESSQL_DB: ${{ secrets.POSTGRESSQL_DB }}
           POSTGRESSQL_USER: ${{ secrets.POSTGRESSQL_USER }}
           POSTGRESSQL_PASSWORD: ${{ secrets.POSTGRESSQL_PASSWORD }}
-          POSTGRESSQL_SSL: ${{ secrets.POSTGRESSQL_SSL }}
-
-          # Users & Auth
           ADMIN_EMAIL: ${{ secrets.ADMIN_EMAIL }}
           ADMIN_PASSWORD: ${{ secrets.ADMIN_PASSWORD }}
           REGULAR_USER_EMAIL: ${{ secrets.REGULAR_USER_EMAIL }}
           REGULAR_USER_PASSWORD: ${{ secrets.REGULAR_USER_PASSWORD }}
 
-      # 2. Generar Reporte Allure con historial
+      # --- CORRECCIÓN: Instalar Java para Allure ---
+      - name: Install Java for Allure Report
+        if: always()
+        run: |
+          apt-get update && apt-get install -y default-jdk
+
       - name: Generate Allure Report
         if: always()
         run: |
           mkdir -p allure-results
-          # Si existe historial previo, lo movemos a los resultados actuales
+          # Copiar historial si existe
           cp -r gh-pages-repo/history allure-results || true
           npm run allure:generate
 
-      # 3. Publicar reporte en la rama gh-pages
       - name: Deploy Allure Report to GitHub Pages
         if: always()
         uses: peaceiris/actions-gh-pages@v3
@@ -78,7 +69,6 @@ jobs:
           publish_dir: ./allure-report
           publish_branch: gh-pages
 
-      # 4. Guardar carpetas como backup (Zip)
       - name: Archive Test Artifacts
         if: always()
         uses: actions/upload-artifact@v4
@@ -91,7 +81,6 @@ jobs:
             test-results
           retention-days: 7
 
-      # 5. Mostrar link en el resumen del Job
       - name: Post Report Summary
         if: always()
         run: |
