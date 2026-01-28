@@ -6,7 +6,9 @@ import {
   Filter,
   OptionalId,
 } from "mongodb"
-import { v5 as uuidv5 } from "uuid"
+
+// 1. Eliminamos el import estático de arriba y declaramos una variable para uuid
+let uuidv5: any
 
 interface BaseDocument extends Document {
   _id: string
@@ -25,6 +27,12 @@ class MongoDBClient {
   }
 
   async connect(): Promise<Db> {
+    // 2. Cargamos uuid dinámicamente durante la conexión
+    if (!uuidv5) {
+      const uuidModule = await import("uuid")
+      uuidv5 = uuidModule.v5
+    }
+
     if (!(this.client as any).topology?.isConnected()) {
       await this.client.connect()
       console.log("✅ connected to MongoDB")
@@ -36,8 +44,16 @@ class MongoDBClient {
   generateCustomUUID(collection: string, extraKey: string): string {
     const keyword = `${process.env.BASE_KEYWORD_ID}-${collection}-${extraKey}`
     const nameSpace = process.env.UUID_NAMESPACE || ""
+
+    // 3. Verificamos que uuidv5 esté cargado por si se llama antes de connect
+    if (!uuidv5) {
+      throw new Error("UUID library not loaded. Call connect() first.")
+    }
+
     return uuidv5(keyword, nameSpace)
   }
+
+  // ... (Resto de tus métodos: getDocumentsBy, updateOne, deleteOne, etc. se mantienen igual)
 
   async getDocumentsBy(
     collectionName: string,
