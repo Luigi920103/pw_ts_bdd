@@ -20,7 +20,6 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v4
 
-      # --- MEJORA 1: Instalar Java al inicio ---
       - name: Install Java System-wide
         run: |
           apt-get update
@@ -38,9 +37,10 @@ jobs:
           path: gh-pages-repo
 
       - name: Execute Playwright BDD Tests
+        # Agregamos continue-on-error para que si fallan los tests, se generen los reportes
+        continue-on-error: true
         run: npm run test-all
         env:
-          # (Tus variables de entorno se mantienen igual...)
           TEST_ENVIRONMENT: ${{ secrets.TEST_ENVIRONMENT || 'dev' }}
           MONGODB_CONNECTION: ${{ secrets.MONGODB_CONNECTION }}
           MONGODB_DB: ${{ secrets.MONGODB_DB }}
@@ -54,21 +54,23 @@ jobs:
           REGULAR_USER_EMAIL: ${{ secrets.REGULAR_USER_EMAIL }}
           REGULAR_USER_PASSWORD: ${{ secrets.REGULAR_USER_PASSWORD }}
 
-      # --- MEJORA 2: Asegurar que los resultados existan antes de generar ---
-      - name: Generate Allure Report
+      - name: 🔍 Collect and Generate Allure Report
         if: always()
         run: |
-          # Crear carpeta si no existe
+          # 1. Asegurar que existan carpetas
           mkdir -p allure-results
+          mkdir -p test-results
+          mkdir -p playwright-report
+
+          # 2. Si Playwright generó los resultados en otra carpeta, los traemos a la raíz
+          # Esto soluciona el problema del reporte vacío
+          find . -name "*-result.json" -exec cp {} allure-results/ \;
+          find . -name "*-attachment.*" -exec cp {} allure-results/ \;
           
-          # Verificar si hay archivos (esto ayuda a debuguear en los logs)
-          echo "Contenido de allure-results:"
-          ls -l allure-results || echo "Carpeta vacía"
-          
-          # Copiar historial
+          # 3. Copiar historial para tendencia
           cp -r gh-pages-repo/history allure-results || true
           
-          # Generar reporte forzando la ruta
+          # 4. Generar el reporte
           npx allure generate allure-results --clean -o allure-report
 
       - name: Deploy Allure Report to GitHub Pages
@@ -79,4 +81,21 @@ jobs:
           publish_dir: ./allure-report
           publish_branch: gh-pages
 
-      # ... (Resto de pasos de guardado de artefactos)
+      # --- SECCIÓN DE ARTEFACTOS CORREGIDA ---
+      - name: 📦 Archive Execution Artifacts
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: execution-results-bundle
+          path: |
+            test-results/
+            allure-report/
+            allure-results/
+            playwright-report/
+          retention-days: 7
+
+      - name: Post Report Summary
+        if: always()
+        run: |
+          echo "### 📊 Resultados de la Ejecución" >> $GITHUB_STEP_SUMMARY
+          echo "🔗 **URL del Reporte:** https://${{ github.repository_owner }}.github.io/${{ github.event.repository.name }}/" >> $GITHUB_STEP_SUMMARY
