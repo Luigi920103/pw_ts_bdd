@@ -1,0 +1,21 @@
+🧹 Cleaning cache tokens...
+
+🔍 [Checking]: GET https://restful-booker.herokuapp.com/booking/6
+   - Active mocks: 0
+
+🔴 <<<<<<<<<< DEBUG GET  🔴
+curl -X GET "https://restful-booker.herokuapp.com/booking/6" -H "Content-Type: application/json"
+STATUS: 200 | TIME: 154.18ms
+RESPONSE: {
+  "firstname": "Mary",
+  "lastname": "Brown",
+  "totalprice": 361,
+  "depositpaid": true,
+  "bookingdates": {
+    "checkin": "2024-04-24",
+    "checkout": "2025-02-24"
+  },
+  "additionalneeds": "Breakfast"
+}
+🔴🔴 >>>>>>>>>> 🔴🔴
+

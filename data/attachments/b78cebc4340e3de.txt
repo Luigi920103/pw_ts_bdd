@@ -1,0 +1,21 @@
+🔑 Recovering session token for the role: admin
+✅ Token recovered for: admin
+✅ Mock activated ".*/booking/.*" using the file "bookingError.json"
+Using role "admin" to get session token for UpdateBookingById
+🔑 Recovering session token for the role: admin
+✅ Token recovered for: admin
+
+🔍 [Checking]: PUT https://restful-booker.herokuapp.com/booking/968
+   - Active mocks: 1
+🎯 [MOCK MATCHED] Blocking real request to: https://restful-booker.herokuapp.com/booking/968
+
+🔴 <<<<<<<<<< DEBUG PUT (MOCKED) 🔴
+curl -X PUT "https://restful-booker.herokuapp.com/booking/968" -H "Content-Type: application/json" -H "Cookie: token=8ec92c0d176a506" -d '{"firstname":"John","lastname":"Smith","totalprice":111,"depositpaid":true,"bookingdates":{"checkin":"2018-01-01","checkout":"2019-01-01"},"additionalneeds":"Breakfast"}'
+STATUS: 400 | TIME: 0.00ms
+RESPONSE: {
+  "error": "Bad Request MOCKED",
+  "message": "Invalid booking data provided",
+  "timestamp": "2024-05-20T10:00:00Z"
+}
+🔴🔴 >>>>>>>>>> 🔴🔴
+

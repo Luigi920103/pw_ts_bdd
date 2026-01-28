@@ -1,5 +1,0 @@
-🔑 Recovering session token for the role: admin
-✅ Token recovered for: admin
-Using role "admin" to get session token for UpdateBookingById
-🔑 Recovering session token for the role: admin
-✅ Token recovered for: admin
