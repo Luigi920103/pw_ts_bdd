@@ -41,7 +41,12 @@ jobs:
         continue-on-error: true
         run: npm run test-all
         env:
-          TEST_ENVIRONMENT: ${{ secrets.TEST_ENVIRONMENT || 'dev' }}
+          TEST_ENVIRONMENT: ${{ vars.TEST_ENVIRONMENT || 'dev' }}
+          PAUSE_APP_ON_DEBUG: ${{ vars.PAUSE_APP_ON_DEBUG || 'false' }}
+          AUTOMATION_UI_WIDTH: ${{ vars.AUTOMATION_UI_WIDTH || '1366' }}
+          AUTOMATION_UI_HEIGHT: ${{ vars.AUTOMATION_UI_HEIGHT || '768' }}
+          API_DEBUG: ${{ vars.API_DEBUG || 'true' }}
+          
           MONGODB_CONNECTION: ${{ secrets.MONGODB_CONNECTION }}
           MONGODB_DB: ${{ secrets.MONGODB_DB }}
           POSTGRESSQL_HOST: ${{ secrets.POSTGRESSQL_HOST }}
