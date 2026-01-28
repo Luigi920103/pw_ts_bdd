@@ -1,7 +1,7 @@
 import { APIRequestContext } from "@playwright/test"
 import apiClient, { CustomAPIResponse } from "../../utils/apiClient"
 import { apiPaths } from "../../utils/constants"
-import ApiSessionManager from "../../utils/ApiSessionManager"
+import ApiSessionManager from "../../utils/apiSessionManager"
 
 const baseUrl: string = process.env.AUTOMATION_API_BASE_URL || ""
 
