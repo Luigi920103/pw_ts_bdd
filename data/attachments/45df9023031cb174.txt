@@ -1,5 +1,3 @@
-🧹 Cleaning cache tokens...
-🗑️  The file /__w/pw_ts_bdd/pw_ts_bdd/src/resources/temp/api_token_cache.json has been deleted.
 🔑 Recovering session token for the role: admin
 🚀 Generating new session token for [admin] in: /__w/pw_ts_bdd/pw_ts_bdd/src/resources/temp/api_token_cache.json
 
@@ -8,9 +6,9 @@
 
 🔴 <<<<<<<<<< DEBUG POST  🔴
 curl -X POST "https://restful-booker.herokuapp.com/auth" -H "Content-Type: application/json" -d '{"username":"admin","password":"password123"}'
-STATUS: 200 | TIME: 90.10ms
+STATUS: 200 | TIME: 63.89ms
 RESPONSE: {
-  "token": "b38fc6ac40479e0"
+  "token": "c3c69c914b034bc"
 }
 🔴🔴 >>>>>>>>>> 🔴🔴
 
@@ -23,12 +21,12 @@ Using role "admin" to get session token for UpdateBookingById
    - Active mocks: 0
 
 🔴 <<<<<<<<<< DEBUG PUT  🔴
-curl -X PUT "https://restful-booker.herokuapp.com/booking/6" -H "Content-Type: application/json" -H "Cookie: token=b38fc6ac40479e0" -d '{"firstname":"John","lastname":"John","totalprice":111,"depositpaid":true,"bookingdates":{"checkin":"2018-01-01","checkout":"2019-01-01"},"additionalneeds":"Breakfast"}'
-STATUS: 200 | TIME: 15.63ms
+curl -X PUT "https://restful-booker.herokuapp.com/booking/6" -H "Content-Type: application/json" -H "Cookie: token=c3c69c914b034bc" -d '{"firstname":"John","lastname":"Luigi","totalprice":500,"depositpaid":true,"bookingdates":{"checkin":"2018-01-01","checkout":"2019-01-01"},"additionalneeds":"Breakfast"}'
+STATUS: 200 | TIME: 65.79ms
 RESPONSE: {
   "firstname": "John",
-  "lastname": "John",
-  "totalprice": 111,
+  "lastname": "Luigi",
+  "totalprice": 500,
   "depositpaid": true,
   "bookingdates": {
     "checkin": "2018-01-01",

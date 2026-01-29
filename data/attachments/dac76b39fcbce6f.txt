@@ -1,13 +1,14 @@
 🧹 Cleaning cache tokens...
+🗑️  The file /__w/pw_ts_bdd/pw_ts_bdd/src/resources/temp/api_token_cache.json has been deleted.
 
 🔍 [Checking]: POST https://restful-booker.herokuapp.com/auth
    - Active mocks: 0
 
 🔴 <<<<<<<<<< DEBUG POST  🔴
 curl -X POST "https://restful-booker.herokuapp.com/auth" -H "Content-Type: application/json" -d '{"username":"admin","password":"password123"}'
-STATUS: 200 | TIME: 68.93ms
+STATUS: 200 | TIME: 345.16ms
 RESPONSE: {
-  "token": "5ba899605c3f96c"
+  "token": "f52346f5afb103e"
 }
 🔴🔴 >>>>>>>>>> 🔴🔴
 
