@@ -60,28 +60,34 @@ jobs:
       - name: 🔍 Collect and Generate Allure Report
         if: always()
         run: |
-          mkdir -p allure-results
+          # Aseguramos la existencia de las carpetas que quieres guardar
+          mkdir -p allure-results test-results playwright-report
+          
+          # Recolectamos resultados dispersos (especialmente importante en Docker)
           find . -name "*-result.json" -exec cp {} allure-results/ \;
           find . -name "*-attachment.*" -exec cp {} allure-results/ \;
+          
           if [ -d "gh-pages-repo/history" ]; then
             cp -r gh-pages-repo/history allure-results/
           fi
+          
           npx allure generate allure-results --clean -o allure-report
 
-      # --- NUEVO ORDEN: Primero guardamos el ZIP de artefactos ---
+      # --- AJUSTE: Mapeo de rutas para el artefacto ---
       - name: 📦 Archive Execution Artifacts
         if: always()
         uses: actions/upload-artifact@v4
         with:
           name: playwright-execution-bundle
+          # Usamos ./ para forzar la ruta desde la raíz del workspace
           path: |
-            test-results/
-            allure-results/
-            allure-report/
-            playwright-report/
+            ./test-results/
+            ./allure-results/
+            ./allure-report/
+            ./playwright-report/
+          if-no-files-found: warn
           retention-days: 7
 
-      # --- DESPUÉS: Publicamos en GitHub Pages ---
       - name: Deploy Allure Report to GitHub Pages
         if: always()
         uses: peaceiris/actions-gh-pages@v3
@@ -94,4 +100,5 @@ jobs:
         if: always()
         run: |
           echo "### 📊 Resultados de la Ejecución" >> $GITHUB_STEP_SUMMARY
+          echo "El reporte de Allure y los artefactos de descarga han sido generados con éxito." >> $GITHUB_STEP_SUMMARY
           echo "🔗 **URL del Reporte:** https://${{ github.repository_owner }}.github.io/${{ github.event.repository.name }}/" >> $GITHUB_STEP_SUMMARY
