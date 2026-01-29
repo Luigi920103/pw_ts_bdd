@@ -1,0 +1,25 @@
+🔑 Recovering session token for the role: admin
+✅ Token recovered for: admin
+Using role "admin" to get session token for UpdateBookingById
+🔑 Recovering session token for the role: admin
+✅ Token recovered for: admin
+
+🔍 [Checking]: PUT https://restful-booker.herokuapp.com/booking/6
+   - Active mocks: 0
+
+🔴 <<<<<<<<<< DEBUG PUT  🔴
+curl -X PUT "https://restful-booker.herokuapp.com/booking/6" -H "Content-Type: application/json" -H "Cookie: token=44bb525b709e62b" -d '{"firstname":"John","lastname":"John","totalprice":111,"depositpaid":true,"bookingdates":{"checkin":"2018-01-01","checkout":"2019-01-01"},"additionalneeds":"Breakfast"}'
+STATUS: 200 | TIME: 27.04ms
+RESPONSE: {
+  "firstname": "John",
+  "lastname": "John",
+  "totalprice": 111,
+  "depositpaid": true,
+  "bookingdates": {
+    "checkin": "2018-01-01",
+    "checkout": "2019-01-01"
+  },
+  "additionalneeds": "Breakfast"
+}
+🔴🔴 >>>>>>>>>> 🔴🔴
+

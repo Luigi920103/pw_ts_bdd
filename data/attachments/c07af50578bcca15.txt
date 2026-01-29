@@ -5,15 +5,15 @@
 
 🔴 <<<<<<<<<< DEBUG GET  🔴
 curl -X GET "https://restful-booker.herokuapp.com/booking/6" -H "Content-Type: application/json"
-STATUS: 200 | TIME: 138.82ms
+STATUS: 200 | TIME: 149.44ms
 RESPONSE: {
-  "firstname": "Mark",
-  "lastname": "Smith",
-  "totalprice": 187,
-  "depositpaid": false,
+  "firstname": "Eric",
+  "lastname": "Brown",
+  "totalprice": 395,
+  "depositpaid": true,
   "bookingdates": {
-    "checkin": "2016-10-18",
-    "checkout": "2023-08-20"
+    "checkin": "2016-05-22",
+    "checkout": "2020-04-02"
   },
   "additionalneeds": "Breakfast"
 }
