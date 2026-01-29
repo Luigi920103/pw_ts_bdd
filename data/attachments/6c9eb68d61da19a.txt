@@ -1,19 +1,20 @@
 🧹 Cleaning cache tokens...
+🗑️  The file /__w/pw_ts_bdd/pw_ts_bdd/src/resources/temp/api_token_cache.json has been deleted.
 
 🔍 [Checking]: GET https://restful-booker.herokuapp.com/booking/6
    - Active mocks: 0
 
 🔴 <<<<<<<<<< DEBUG GET  🔴
 curl -X GET "https://restful-booker.herokuapp.com/booking/6" -H "Content-Type: application/json"
-STATUS: 200 | TIME: 149.44ms
+STATUS: 200 | TIME: 103.55ms
 RESPONSE: {
-  "firstname": "Eric",
-  "lastname": "Brown",
-  "totalprice": 395,
+  "firstname": "Mary",
+  "lastname": "Jones",
+  "totalprice": 622,
   "depositpaid": true,
   "bookingdates": {
-    "checkin": "2016-05-22",
-    "checkout": "2020-04-02"
+    "checkin": "2022-09-21",
+    "checkout": "2024-04-29"
   },
   "additionalneeds": "Breakfast"
 }
