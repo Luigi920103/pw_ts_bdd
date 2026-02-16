@@ -1,18 +1,17 @@
-import { APIRequestContext } from "@playwright/test"
+import { APIRequestContext } from "../../fixtures/fixtures"
 import apiClient, { CustomAPIResponse } from "../../utils/apiClient"
 import { apiPaths } from "../../utils/constants"
-
-const baseUrl: string = process.env.AUTOMATION_API_BASE_URL || ""
-
-class GetBookingServiceAction {
+import { BaseService } from "./baseService"
+class GetBookingServiceAction extends BaseService {
   async getBookingById(
     request: APIRequestContext,
-    id: string | number,
+    idExpected: string | number,
     config: object = {},
   ): Promise<CustomAPIResponse> {
-    let getBookingPath: string = apiPaths.Booking.ByID
-    getBookingPath = getBookingPath.replace("{id}", String(id))
-    return await apiClient.get(request, baseUrl, getBookingPath, config)
+    let getBookingPath: string = this.buildPath(apiPaths.Booking.ByID, {
+      id: idExpected,
+    })
+    return await apiClient.get(request, this.baseUrl, getBookingPath, config)
   }
 }
 

@@ -1,11 +1,10 @@
-import { APIRequestContext } from "@playwright/test"
+import { APIRequestContext } from "../../fixtures/fixtures"
 import apiClient, { CustomAPIResponse } from "../../utils/apiClient"
 import { apiPaths } from "../../utils/constants"
-
-const baseUrl: string = process.env.AUTOMATION_API_BASE_URL || ""
+import { BaseService } from "./baseService"
 const authPath: string = apiPaths.Login.auth
 
-class LoginServiceAction {
+class LoginServiceAction extends BaseService {
   async apiLogin(
     request: APIRequestContext,
     user: string,
@@ -17,7 +16,13 @@ class LoginServiceAction {
       password: password,
     }
 
-    return await apiClient.post(request, baseUrl, authPath, payload, config)
+    return await apiClient.post(
+      request,
+      this.baseUrl,
+      authPath,
+      payload,
+      config,
+    )
   }
 }
 

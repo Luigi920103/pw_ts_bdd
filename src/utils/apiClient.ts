@@ -1,4 +1,4 @@
-import { APIRequestContext, APIResponse } from "@playwright/test"
+import { APIRequestContext, APIResponse } from "../fixtures/fixtures"
 import { setLastApiResponse } from "./commands"
 import * as allure from "allure-js-commons"
 

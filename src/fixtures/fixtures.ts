@@ -1,4 +1,5 @@
 import { test as base, createBdd } from "playwright-bdd"
+import { Page, Locator, APIRequestContext, APIResponse } from "@playwright/test"
 import ApiClient from "../utils/apiClient"
 import { cleanVariables, deleteFile } from "../utils/commands"
 import path from "path"
@@ -34,4 +35,16 @@ BeforeAll(async () => {
   await deleteFile(CACHE_FILE)
 })
 
-export { Given, When, Then, BeforeAll, AfterAll, Before, After }
+export {
+  Given,
+  When,
+  Then,
+  BeforeAll,
+  AfterAll,
+  Before,
+  After,
+  Page,
+  Locator,
+  APIRequestContext,
+  APIResponse,
+}

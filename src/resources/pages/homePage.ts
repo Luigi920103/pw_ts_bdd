@@ -1,22 +1,22 @@
-import { Page, Locator } from "@playwright/test"
+import { Page, Locator } from "../../fixtures/fixtures"
+import { BasePage } from "./basePage"
 
-export default class HomePage {
-  readonly page: Page
+export default class HomePage extends BasePage {
   readonly url: string
   readonly productsContainer: Locator
   readonly productThumb: Locator
   readonly successAlert: Locator
 
   constructor(page: Page) {
-    this.page = page
-    this.url = `${process.env.AUTOMATION_UI_BASE_URL}`
+    super(page)
+    this.url = `${process.env.UI_BASE_URL}`
     this.productsContainer = page.locator("#content div.row")
     this.productThumb = page.locator('div[class="product-thumb transition"]')
     this.successAlert = page.locator(".alert-success")
   }
 
-  async navigate(): Promise<void> {
-    await this.page.goto(this.url)
+  async navigateToHome(): Promise<void> {
+    await this.navigate()
     await this.productsContainer.first().waitFor()
   }
 

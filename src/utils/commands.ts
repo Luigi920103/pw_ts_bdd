@@ -1,7 +1,7 @@
 import dayjs from "dayjs"
 import fs from "fs"
 import path from "path"
-import { Page } from "@playwright/test"
+import { Page } from "../fixtures/fixtures"
 import MongoDBClient from "./mongoClient"
 import PostgresClient from "./postgresClient"
 import { CustomAPIResponse } from "./apiClient"
